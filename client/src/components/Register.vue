@@ -62,21 +62,20 @@
         var self = this;
         try {
           await this.$refs.uploader.submitUpload().then(res=>{
-            
             this.accountContract().methods.registerMember(this.form.name, res)
               .send({
                 from: this.web3.coinbase,
                 gas: 300000
               })
               .on('receipt', async function (receipt) {
-                console.log(343434, receipt, res);
                 let param = {
                   userName: self.form.name,
                   password: self.form.password,
-                  avatarHash: res
+                  avatarHash: res,
+                  transactionHash: receipt.transactionHash
                 }
+                console.log('block结构体=============', receipt)
                 await self.$store.dispatch('register', param).then(data => {
-                  console.log(1111, data)
                   self.$message.success('注册成功');
                   self.form.name = '';
                   self.form.password = '';
@@ -93,6 +92,24 @@
             })
         } catch (e) {
           console.log(e)
+        }
+      },
+      async getBalance() {
+        try {
+            await this.accountContract().methods.withdraw(100).send({
+                from: this.web3.coinbase,
+                gas: 300000
+            }).on('receipt', async function (res) {
+              console.log('获取余额', res)
+              await self.accountContract().methods.getTotalBalance().then(console.log)
+            })
+            .on('error', function (error) {
+                console.log('获取余额失败', error)
+            })
+          
+        }
+        catch (e) {
+          console.log('获取余额e：', e )
         }
       }
     },

@@ -11,7 +11,8 @@ const user = {
         const userObj = {
             userName: info.userName,
             password: info.password,
-            avatarHash: info.avatarHash
+            avatarHash: info.avatarHash,
+            transactionHash: info.transactionHash
         }
         await db.register(userObj)
         ctx.body = '添加成功！'
