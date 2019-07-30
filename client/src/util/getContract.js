@@ -1,5 +1,5 @@
 import Web3 from 'web3'
-import { address, ABI } from './comtractsAbi/Account'
+// import { address, ABI } from './comtractsAbi/Account'
 import AccountContract from '../../build/contracts/Account'
 
 let getContract = new Promise((resolve, rejects) => {
