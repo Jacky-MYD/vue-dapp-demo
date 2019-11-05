@@ -17,6 +17,6 @@
     "koa-views": "^6.2.0",
     "koa2": "^2.0.0-alpha.7",
     "koa2-cors": "^2.0.6",
-    "mongoose": "^5.6.5"
+    "mongoose": "^5.7.5"
   }
 }
